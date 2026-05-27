@@ -1,3 +1,12 @@
 # Lab8-Starter
+Participants: Adithya Gundlapalli
 
-Service workers help with graceful degradation by providing cached copies of critical resources (HTML, CSS, JS, images, and API responses) so that the app can continue functioning even when the network is slow or unavailable. Graceful degradation is the practice of designing an app so that it still works (maybe with reduced features) on lower-capability environments; service workers enable this by intercepting network requests and serving cached responses or fallbacks when network responses fail. Together they make the app more resilient to network variability.
+Service workers help the app keep working even when the internet is slow or completely unavailable by storing important files like HTML, CSS, JavaScript, images, and even API data in cache. This supports graceful degradation, which basically means designing the app so it can still function even if some conditions aren’t ideal. Instead of the whole app breaking when the network fails, the service worker can step in and serve cached content, allowing the user to still access core features with limited functionality.
+
+
+Website: https://adithyagundlapalli.github.io/Lab8_Starter/
+
+
+<img width="1245" height="1051" alt="pwa" src="https://github.com/user-attachments/assets/3a2691c9-c6ec-45ea-8ce5-404763d56dfd" />
+
+
