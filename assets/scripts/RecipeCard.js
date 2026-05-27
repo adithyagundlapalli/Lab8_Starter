@@ -1,21 +1,21 @@
 // RecipeCard.js
 
 class RecipeCard extends HTMLElement {
-    // Called once when document.createElement('recipe-card') is called, or
-    // the element is written into the DOM directly as <recipe-card>
-    constructor() {
-      super(); // Inheret everything from HTMLElement
-  
-      // Attaches the shadow DOM to this Web Component
-      this.attachShadow({ mode: 'open' });
-  
-      // This element will hold our markup once our data is set
-      const article = document.createElement('article');
-  
-      // This style element will hold all of the styles for the Web Component
-      const styles = document.createElement('style');
-      // Insert all of the styles in to the <style> element
-      styles.innerHTML = `
+  // Called once when document.createElement('recipe-card') is called, or
+  // the element is written into the DOM directly as <recipe-card>
+  constructor() {
+    super(); // Inheret everything from HTMLElement
+
+    // Attaches the shadow DOM to this Web Component
+    this.attachShadow({ mode: "open" });
+
+    // This element will hold our markup once our data is set
+    const article = document.createElement("article");
+
+    // This style element will hold all of the styles for the Web Component
+    const styles = document.createElement("style");
+    // Insert all of the styles in to the <style> element
+    styles.innerHTML = `
         * {
           font-family: sans-serif;
           margin: 0;
@@ -90,42 +90,42 @@ class RecipeCard extends HTMLElement {
           font-size: 12px;
         }
       `;
-  
-      // Append the <style> and <article> elements to the Shadow DOM
-      this.shadowRoot.append(styles, article);
-    }
-  
-    /**
-     * Called when the .data property is set on this element.
-     * 
-     * For Example:
-     * let recipeCard = document.createElement('recipe-card'); // Calls constructor()
-     * recipeCard.data = { foo: 'bar' } // Calls set data({ foo: 'bar' })
-     *
-     * @param {Object} data - The data to pass into the <recipe-card>, must be of the
-     *                        following format:
-     *                        {
-     *                          "imgSrc": "string",
-     *                          "imgAlt": "string",
-     *                          "titleLnk": "string",
-     *                          "titleTxt": "string",
-     *                          "organization": "string",
-     *                          "rating": number,
-     *                          "numRatings": number,
-     *                          "lengthTime": "string",
-     *                          "ingredients": "string"
-     *                        }
-     */
-    set data(data) {
-      // If nothing was passed in, return
-      if (!data) return;
-  
-      // Select the <article> we added to the Shadow DOM in the constructor
-      const article = this.shadowRoot.querySelector('article');
-  
-      // Set the contents of the <article> with the <recipe-card> template and
-      // the data passed in
-      article.innerHTML = `
+
+    // Append the <style> and <article> elements to the Shadow DOM
+    this.shadowRoot.append(styles, article);
+  }
+
+  /**
+   * Called when the .data property is set on this element.
+   *
+   * For Example:
+   * let recipeCard = document.createElement('recipe-card'); // Calls constructor()
+   * recipeCard.data = { foo: 'bar' } // Calls set data({ foo: 'bar' })
+   *
+   * @param {Object} data - The data to pass into the <recipe-card>, must be of the
+   *                        following format:
+   *                        {
+   *                          "imgSrc": "string",
+   *                          "imgAlt": "string",
+   *                          "titleLnk": "string",
+   *                          "titleTxt": "string",
+   *                          "organization": "string",
+   *                          "rating": number,
+   *                          "numRatings": number,
+   *                          "lengthTime": "string",
+   *                          "ingredients": "string"
+   *                        }
+   */
+  set data(data) {
+    // If nothing was passed in, return
+    if (!data) return;
+
+    // Select the <article> we added to the Shadow DOM in the constructor
+    const article = this.shadowRoot.querySelector("article");
+
+    // Set the contents of the <article> with the <recipe-card> template and
+    // the data passed in
+    article.innerHTML = `
         <img src="${data.imgSrc}" alt="${data.imgAlt}">
         <p class="title">
           <a href="${data.titleLnk}">${data.titleTxt}</a>
@@ -139,8 +139,18 @@ class RecipeCard extends HTMLElement {
         <time>${data.lengthTime}</time>
         <p class="ingredients">${data.ingredients}</p>
       `;
+
+    // Add a fallback in case the image fails to load (hotlinking blocked or network error)
+    const imgElem = article.querySelector("img");
+    if (imgElem) {
+      imgElem.addEventListener("error", () => {
+        // Use a local icon as a placeholder
+        imgElem.src = "assets/images/icons/icon-192x192.png";
+        imgElem.alt = "Image not available";
+      });
     }
   }
-  
-  // Define the Class so you can use it as a custom element
-  customElements.define('recipe-card', RecipeCard);
+}
+
+// Define the Class so you can use it as a custom element
+customElements.define("recipe-card", RecipeCard);
